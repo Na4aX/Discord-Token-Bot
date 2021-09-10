@@ -3,6 +3,7 @@
 import discord
 import subprocess
 import os
+from sys import argv
 
 from price import price
 from info import info
@@ -19,14 +20,11 @@ async def on_ready():
 async def on_message(message):
     message.content = message.content.lower()
     cmd = message.content.split()[0]
-    state = 0
     if cmd == "!price":
         await price(message)
     elif message.content == "!info":
         await info(message)
-    elif state == -1:
-        await usage(cmd, message)
 
-
-API_KEY = os.environ.get("DISCORD_API_KEY")
-client.run(API_KEY)
+if __name__ == '__main__':
+    API_KEY = os.environ.get("DISCORD_API_KEY")
+    client.run(API_KEY)
